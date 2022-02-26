@@ -15,9 +15,13 @@ for (f in list.files(here::here("R"), full.names = TRUE)) source (f)
 
 # Groups of targets ------------------------------------------------------------
 
-## Sampling
-spatial_sample <- tar_plan(
-  ##
+## Get XLSForm and setup ODK in ONA
+xlsform_setup <- tar_plan(
+  xlsform_file = download_googledrive(
+    filename = "rrr_feedback", 
+    path = "forms/rrr_feedback.xlsx", 
+    overwrite = TRUE
+  )
 )
 
 ## Read raw data
@@ -59,7 +63,7 @@ set.seed(1977)
 
 # Concatenate targets ----------------------------------------------------------
 list(
-  spatial_sample,
+  xlsform_setup,
   raw_data,
   processed_data,
   analysis,

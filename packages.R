@@ -17,15 +17,16 @@ library(kableExtra)
 ################################################################################
 #
 #'
-#' S3M-specific packages
+#' Data wrangling packages
 #'
 #
 ################################################################################
 
-library(sf)
-library(raster)
-library(spatialsampler)
-library(mapboxapi)
+library(dplyr)
+library(ggplot2)
+library(ggiraph)
+library(googledrive)
+library(googlesheets4)
 
 
 ################################################################################
@@ -43,24 +44,10 @@ library(okapi)
 ################################################################################
 #
 #'
-#' Nutrition data analysis packages
+#' Reporting packages
 #'
 #
 ################################################################################
 
-library(zscorer)
-library(nutricheckr)
-library(anthrocheckr)
-
-
-################################################################################
-#
-#'
-#' Poverty Probability Index (PPI) data analysis package
-#'
-#
-################################################################################
-
-library(ppitables)
-
+library(flexdashboard)
 
