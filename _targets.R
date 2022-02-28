@@ -17,16 +17,33 @@ for (f in list.files(here::here("R"), full.names = TRUE)) source (f)
 
 ## Get XLSForm and setup ODK in ONA
 xlsform_setup <- tar_plan(
-  xlsform_file = download_googledrive(
-    filename = "rrr_feedback", 
-    path = "forms/rrr_feedback.xlsx", 
-    overwrite = TRUE
+  tar_target(
+    name = xlsform_file,
+    command = download_googledrive(
+      filename = "rrr_feedback", 
+      path = "forms/rrr_feedback.xlsx", 
+      overwrite = TRUE
+    ) |>
+      (\(x) x[["local_path"]])(),
+    format = "file"
+  ),
+  ona_project_id = okapi::ona_project_list() |>
+    subset(name == "Open Science and Reproducible Research in R") |>
+    (\(x) x[["projectid"]])(),
+  ona_form_published = okapi::ona_form_publish(
+    xls_file = xlsform_file,
+    project_id = ona_project_id,
+    public = TRUE
   )
 )
 
 ## Read raw data
 raw_data <- tar_plan(
   ##
+  feedback_data = okapi::ona_data_list() |>
+    subset(id_string == "rrr_feedback") |>
+    (\(x) x[["id"]])() |>
+    (\(x) okapi::ona_data_get(form_id = x))()
 )
 
 
